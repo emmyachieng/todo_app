@@ -17,38 +17,6 @@ defmodule TodoAppWeb.TaskController do
     render(conn, :new, changeset: changeset)
   end
 
-  # defp find_or_create_user_by_email(email) do
-  #   case Repo.get_by(User, email: email) do
-  #     nil ->
-  #       %User{email: email}
-  #       |> User.registration_changeset(%{password: "some_default_password"})
-  #       |> Repo.insert()
-  #     user -> user
-  #   end
-  # end 
-
-  # def create(conn, %{"task" => task_params}) do
-     
-  #   email = task_params["assigned_user"]
-  #   assigned_user = find_or_create_user_by_email(email)
-
-  #   task_params = Map.put(task_params, "assigned_user_id", assigned_user.id)
-    
-  #   task_changeset = %Task{}
-  #     |> Task.changeset(task_params)
-
-  #   case Repo.insert(task_changeset) do
-  #     {:ok, _task} ->
-  #       conn
-        
-  #       |> put_flash(:info, "Task created successfully.")
-  #       #|> redirect(to: task_path(conn, :index))
-  #       |> redirect(to: ~p"/tasks")
-
-  #     {:error, changeset} ->
-  #       render(conn, :new, task: changeset)
-  #   end
-  # end
 
   def create(conn, %{"task" => task_params}) do
     task_params =
@@ -78,7 +46,7 @@ defmodule TodoAppWeb.TaskController do
     case Repo.get_by(User, email: email) do
       nil ->
         %User{email: email}
-        |> User.changeset(%{password: "some_default_password"})
+        |> User.registration_changeset(%{password: "some_default_password"})
         |> Repo.insert()
       user -> user
     end
