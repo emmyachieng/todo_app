@@ -3,8 +3,8 @@ defmodule TodoAppWeb.TaskControllerTest do
 
   import TodoApp.TodosFixtures
 
-  @create_attrs %{assigned_user: "some assigned_user", description: "some description", priority: "some priority", title: "some title"}
-  @update_attrs %{assigned_user: "some updated assigned_user", description: "some updated description", priority: "some updated priority", title: "some updated title"}
+  @create_attrs %{assigned_user_id: "some assigned_user", description: "some description", priority: "high", title: "some title"}
+  @update_attrs %{assigned_user_id: "some updated assigned_user", description: "some updated description", priority: "low", title: "some updated title"}
   @invalid_attrs %{assigned_user: nil, description: nil, priority: nil, title: nil}
 
   describe "index" do

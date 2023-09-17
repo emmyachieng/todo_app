@@ -10,7 +10,7 @@
 <.table id="tasks" rows={@tasks} row_click={&JS.navigate(~p"/tasks/#{&1}")}>
   <:col :let={task} label="Title"><%= task.title %></:col>
   <:col :let={task} label="Description"><%= task.description %></:col>
-  <:col :let={task} label="Assigned user"><%= task.assigned_user %></:col>
+  <:col :let={task} label="Assigned user"><%= assigned_user_email(task.assigned_user_id) %></:col>
   <:col :let={task} label="Priority"><%= task.priority %></:col>
   <:action :let={task}>
     <div class="sr-only">

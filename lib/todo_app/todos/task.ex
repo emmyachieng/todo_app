@@ -3,19 +3,21 @@ defmodule TodoApp.Todos.Task do
   import Ecto.Changeset
 
   schema "tasks" do
-    field :assigned_user, :string
     field :description, :string
     field :priority, :string
     field :title, :string
+    belongs_to :users, TodoApp.Accounts.User, foreign_key: :assigned_user_id
 
     timestamps()
   end
 
   @doc false
   def changeset(task, attrs) do
+    
     task
-    |> cast(attrs, [:title, :description, :assigned_user, :priority])
-    |> validate_required([:title, :description, :assigned_user, :priority])
+    |> cast(attrs, [:title, :description, :assigned_user_id, :priority])
+    |> validate_required([:title, :description, :priority])
     |> validate_inclusion(:priority, ["high", "low", "medium", "deadline"])
+    #|> validate_format(:assigned_user_id, ~r/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i)
   end
 end

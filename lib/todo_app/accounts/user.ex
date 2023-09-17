@@ -7,6 +7,7 @@ defmodule TodoApp.Accounts.User do
     field :password, :string, virtual: true, redact: true
     field :hashed_password, :string, redact: true
     field :confirmed_at, :naive_datetime
+    has_many :tasks, TodoApp.Todos.Task, foreign_key: :assigned_user_id
 
     timestamps()
   end

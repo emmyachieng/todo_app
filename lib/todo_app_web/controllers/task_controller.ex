@@ -1,8 +1,11 @@
 defmodule TodoAppWeb.TaskController do
   use TodoAppWeb, :controller
 
+  alias TodoApp.Accounts.User
   alias TodoApp.Todos
   alias TodoApp.Todos.Task
+  import Ecto.Query, warn: false
+  alias TodoApp.Repo
 
   def index(conn, _params) do
     tasks = Todos.list_tasks()
@@ -14,15 +17,70 @@ defmodule TodoAppWeb.TaskController do
     render(conn, :new, changeset: changeset)
   end
 
+  # defp find_or_create_user_by_email(email) do
+  #   case Repo.get_by(User, email: email) do
+  #     nil ->
+  #       %User{email: email}
+  #       |> User.registration_changeset(%{password: "some_default_password"})
+  #       |> Repo.insert()
+  #     user -> user
+  #   end
+  # end 
+
+  # def create(conn, %{"task" => task_params}) do
+     
+  #   email = task_params["assigned_user"]
+  #   assigned_user = find_or_create_user_by_email(email)
+
+  #   task_params = Map.put(task_params, "assigned_user_id", assigned_user.id)
+    
+  #   task_changeset = %Task{}
+  #     |> Task.changeset(task_params)
+
+  #   case Repo.insert(task_changeset) do
+  #     {:ok, _task} ->
+  #       conn
+        
+  #       |> put_flash(:info, "Task created successfully.")
+  #       #|> redirect(to: task_path(conn, :index))
+  #       |> redirect(to: ~p"/tasks")
+
+  #     {:error, changeset} ->
+  #       render(conn, :new, task: changeset)
+  #   end
+  # end
+
   def create(conn, %{"task" => task_params}) do
-    case Todos.create_task(task_params) do
-      {:ok, task} ->
+    task_params =
+      if task_params["assigned_user"] == "" or is_nil(task_params["assigned_user"]) do
+        Map.delete(task_params, "assigned_user")
+      else
+        email = task_params["assigned_user"]
+        assigned_user = find_or_create_user_by_email(email)
+        Map.put(task_params, "assigned_user_id", assigned_user.id)
+      end
+
+    task_changeset = %Task{}
+      |> Task.changeset(task_params)
+
+    case Repo.insert(task_changeset) do
+      {:ok, _task} ->
         conn
         |> put_flash(:info, "Task created successfully.")
-        |> redirect(to: ~p"/tasks/#{task}")
+        |> redirect(to: ~p"/tasks")
 
-      {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, :new, changeset: changeset)
+      {:error, changeset} ->
+        render(conn, :new, task: changeset)
+    end
+  end
+
+  defp find_or_create_user_by_email(email) do
+    case Repo.get_by(User, email: email) do
+      nil ->
+        %User{email: email}
+        |> User.changeset(%{password: "some_default_password"})
+        |> Repo.insert()
+      user -> user
     end
   end
 

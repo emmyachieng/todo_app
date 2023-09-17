@@ -13,7 +13,7 @@ defmodule TodoApp.TodosFixtures do
       |> Enum.into(%{
         assigned_user: "some assigned_user",
         description: "some description",
-        priority: "some priority",
+        priority: "high",
         title: "some title"
       })
       |> TodoApp.Todos.create_task()

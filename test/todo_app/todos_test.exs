@@ -8,7 +8,7 @@ defmodule TodoApp.TodosTest do
 
     import TodoApp.TodosFixtures
 
-    @invalid_attrs %{assigned_user: nil, description: nil, priority: nil, title: nil}
+    @invalid_attrs %{assigned_user_id: nil, description: nil, priority: nil, title: nil}
 
     test "list_tasks/0 returns all tasks" do
       task = task_fixture()
@@ -21,10 +21,10 @@ defmodule TodoApp.TodosTest do
     end
 
     test "create_task/1 with valid data creates a task" do
-      valid_attrs = %{assigned_user: "some assigned_user", description: "some description", priority: "some priority", title: "some title"}
+      valid_attrs = %{assigned_user_id: 2, description: "some description", priority: "high", title: "some title"}
 
       assert {:ok, %Task{} = task} = Todos.create_task(valid_attrs)
-      assert task.assigned_user == "some assigned_user"
+      assert task.assigned_user_id == 2
       assert task.description == "some description"
       assert task.priority == "high"
       assert task.title == "some title"
@@ -36,10 +36,10 @@ defmodule TodoApp.TodosTest do
 
     test "update_task/2 with valid data updates the task" do
       task = task_fixture()
-      update_attrs = %{assigned_user: "some updated assigned_user", description: "some updated description", priority: "some updated priority", title: "some updated title"}
+      update_attrs = %{assigned_user_id: 2, description: "some updated description", priority: "low", title: "some updated title"}
 
       assert {:ok, %Task{} = task} = Todos.update_task(task, update_attrs)
-      assert task.assigned_user == "some updated assigned_user"
+      assert task.assigned_user_id == 2
       assert task.description == "some updated description"
       assert task.priority == "low"
       assert task.title == "some updated title"
