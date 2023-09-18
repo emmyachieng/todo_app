@@ -7,6 +7,16 @@
   </:actions>
 </.header>
 
+  <.simple_form  :let={f} for={@conn} action={~p"/tasks"}, method="get">
+  
+      <.input field={f[:search_query]} placeholder="Filter by Priority" type="search" />
+      
+      <:actions>
+        <.button data-testid="submit_button" type="submit" class="mb-1 btn btn-primary"></.button>
+      </:actions>
+
+    </.simple_form>
+
 <.table id="tasks" rows={@tasks} row_click={&JS.navigate(~p"/tasks/#{&1}")}>
   <:col :let={task} label="Title"><%= task.title %></:col>
   <:col :let={task} label="Description"><%= task.description %></:col>

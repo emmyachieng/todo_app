@@ -17,6 +17,16 @@ defmodule TodoApp.Todos do
       [%Task{}, ...]
 
   """
+  def list_tasks(params) when is_nil(params),do: list_tasks()
+
+  def list_tasks(search_query) when is_binary(search_query) do
+    search_term_pattern = "%#{search_query}%"
+  
+    Task
+    |> where([t], ilike(t.priority, ^search_term_pattern))
+    |> Repo.all()
+  end
+
   def list_tasks do
     Repo.all(Task)
   end

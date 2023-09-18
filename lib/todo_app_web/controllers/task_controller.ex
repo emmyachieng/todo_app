@@ -7,8 +7,8 @@ defmodule TodoAppWeb.TaskController do
   import Ecto.Query, warn: false
   alias TodoApp.Repo
 
-  def index(conn, _params) do
-    tasks = Todos.list_tasks()
+  def index(conn, params) do
+    tasks = Todos.list_tasks(Map.get(params, "search_query"))
     render(conn, :index, tasks: tasks)
   end
 
