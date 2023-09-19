@@ -7,7 +7,7 @@
   </:actions>
 </.header>
 
-  <.simple_form  :let={f} for={@conn} action={~p"/tasks"}, method="get">
+  <.simple_form  :let={f} for={@conn} action={~p"/tasks"} method="get">
   
       <.input field={f[:search_query]} placeholder="Filter by Priority" type="search" />
       

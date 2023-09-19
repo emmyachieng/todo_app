@@ -42,6 +42,57 @@ defmodule TodoAppWeb.TaskController do
     end
   end
 
+  # def create(conn, %{"task" => task_params}) do
+  #   task_params =
+  #     if task_params["assigned_user"] == "" or is_nil(task_params["assigned_user"]) do
+  #       Map.delete(task_params, "assigned_user")
+  #     else
+  #       email = task_params["assigned_user"]
+  #       assigned_user = find_or_create_user_by_email(email)
+  #       Map.put(task_params, "assigned_user_id", assigned_user.id)
+  #     end
+
+  #   # Handle file upload
+  #   {conn, task_params_with_files} = handle_file_upload(conn, task_params)
+
+  #   task_changeset = %Task{}
+  #     |> Task.changeset(task_params_with_files)
+
+  #   case Repo.insert(task_changeset) do
+  #     {:ok, _task} ->
+  #       conn
+  #       |> put_flash(:info, "Task created successfully.")
+  #       |> redirect(to: ~p"/tasks")
+
+  #     {:error, changeset} ->
+  #       render(conn, :new, task: changeset)
+  #   end
+  # end
+
+  # defp handle_file_upload(conn, task_params) do
+  #   case Arc.Store.uploads(conn, :file) do
+  #     [] -> {conn, task_params}
+  #     [file | _] ->
+  #       {conn, Map.put(task_params, "file", %Arc.File{file | original_name: file.name})}
+  #   end
+  # end
+
+  # def create_task_with_documents(attrs) do
+  #   task_params = Map.take(attrs, ~w(title description assigned_user_email priority))
+  #   task_documents = Map.get(attrs, "task_documents", [])
+
+  #   case Tasks.create_task(task_params) do
+  #     {:ok, task} ->
+  #       task
+  #       |> Task.add_task_documents(task_documents)
+  #       |> Repo.preload(:task_documents)
+  #       |> {:ok, task}
+
+  #     {:error, changeset} ->
+  #       {:error, changeset}
+  #   end
+  # end
+
   defp find_or_create_user_by_email(email) do
     case Repo.get_by(User, email: email) do
       nil ->

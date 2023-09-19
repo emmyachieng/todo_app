@@ -22,6 +22,7 @@ defmodule TodoAppWeb.Router do
 
     get "/", PageController, :home
     resources "/tasks", TaskController
+    resources "/images", ImageController
   end
 
   # Other scopes may use custom stacks.

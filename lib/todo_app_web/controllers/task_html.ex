@@ -1,5 +1,6 @@
 defmodule TodoAppWeb.TaskHTML do
   use TodoAppWeb, :html
+  use Phoenix.HTML
 
   embed_templates "task_html/*"
 

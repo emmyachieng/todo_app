@@ -19,7 +19,7 @@ defmodule TodoApp.MixProject do
   def application do
     [
       mod: {TodoApp.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :arc_ecto]
     ]
   end
 
@@ -50,7 +50,9 @@ defmodule TodoApp.MixProject do
       {:telemetry_poller, "~> 1.0"},
       {:gettext, "~> 0.20"},
       {:jason, "~> 1.2"},
-      {:plug_cowboy, "~> 2.5"}
+      {:plug_cowboy, "~> 2.5"},
+      {:arc, "~> 0.11.0"},
+      {:arc_ecto, "~> 0.11.0"}
     ]
   end
 
