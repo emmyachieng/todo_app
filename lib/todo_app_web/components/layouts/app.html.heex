@@ -4,6 +4,8 @@
       <a href="/">
         <img src={~p"/images/logo.svg"} width="36" />
       </a>
+      <script>window.userToken = "<%= assigns[:user_token] %>";</script>
+      <script src={~p"/assets/app.js"}></script>
       <p class="bg-brand/5 text-brand rounded-full px-2 font-medium leading-6">
         v<%= Application.spec(:phoenix, :vsn) %>
       </p>
